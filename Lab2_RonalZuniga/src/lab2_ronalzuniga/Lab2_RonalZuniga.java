@@ -49,6 +49,11 @@ public class Lab2_RonalZuniga {
                 laborales = sc.nextInt();
                 System.out.print("Ingrese el nivel del detective: ");
                 nivel = sc.nextInt();
+                while (nivel <= 0 || nivel > 10) {
+                    System.out.println("Nivel fuera de rango, intente de nuevo ingresando un numero entre (1-10)");
+                    System.out.print("Ingrese el nivel del detective: ");
+                    nivel = sc.nextInt();
+                }
                 det.add(new Detective(nombre, edad, nacionalidad, laborales, nivel));
                 System.out.println("Detective agregado con éxito");
                 System.out.println("");
@@ -79,20 +84,109 @@ public class Lab2_RonalZuniga {
                             }
                         }//fin if externo
                     }//fin del for
-                        det.remove(p);
-                        System.out.println("Se ha eliminado el detective y se han reasignado sus casos");
-                        System.out.println("");
-                    }//fin opcion 2
+                    det.remove(p);
+                    System.out.println("Se ha eliminado el detective y se han reasignado sus casos");
+                    System.out.println("");
+                }//fin decision anidada
+            }//fin opcion2
 
-                    if (op == 3) {
-
+            if (op == 3) {
+                System.out.println("");
+                int o = 0;
+                while (o != 6) {
+                    System.out.println("----Modificar Detectives----");
+                    System.out.println("1. Modificar Nombre");
+                    System.out.println("2. Modificar Edad");
+                    System.out.println("3, Modificar Nacionalidad");
+                    System.out.println("4. Modificar años laborales");
+                    System.out.println("5. Modificar nivel");
+                    System.out.println("6. Regresar al menu principal");
+                    System.out.print("¿Qué desea modificar?: ");
+                    o = sc.nextInt();
+                    while (o < 0 || o > 6) {
+                        System.out.println("Opcion inválida, intente de nuevo");
+                        System.out.print("¿Qué desea modificar?: ");
+                        o = sc.nextInt();
                     }
-                }
-            }//fin while opcion
+                    System.out.println("");
+                    imprimirD(det);
+                    System.out.print("Ingrese la posicion del detective a modificar: ");
+                    int p = sc.nextInt();
+                    if (p < 0 || p >= det.size()) {
+                        System.out.println("Posicion fuera de rango");
+                        o = 6;
+                    } else {
+                        switch (o) {
+                            case 1:
+                                System.out.println("");
+                                String nombre;
+                                System.out.print("Ingrese el nombre del detective: ");
+                                nombre = sc.next();
+                                det.get(p).setNombre(nombre);
+                                System.out.println("Nombre modificado con éxito");
+                                System.out.println("");
+                                break;
 
-        }//fin del main
+                            case 2:
+                                System.out.println("");
+                                int edad;
+                                System.out.print("Ingrese la edad del detective: ");
+                                edad = sc.nextInt();
+                                det.get(p).setEdad(edad);
+                                System.out.println("Edad modificada con éxito");
+                                System.out.println("");
+                                break;
 
-    
+                            case 3:
+                                System.out.println("");
+                                String nacionalidad;
+                                System.out.print("Ingrese la nacionalidad del detective: ");
+                                nacionalidad = sc.next();
+                                det.get(p).setNacionalidad(nacionalidad);
+                                System.out.println("Nacionalidad modificada con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 4:
+                                System.out.println("");
+                                int laborales;
+                                System.out.print("Ingrese los años que ha laborado el detective: ");
+                                laborales = sc.nextInt();
+                                det.get(p).setLaborales(laborales);
+                                System.out.println("Años laborales modificados con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 5:
+                                System.out.println("");
+                                int nivel;
+                                System.out.print("Ingrese el nivel del detective: ");
+                                nivel = sc.nextInt();
+                                while (nivel <= 0 || nivel > 10) {
+                                    System.out.println("Nivel fuera de rango, intente de nuevo ingresando un numero entre (1-10)");
+                                    System.out.print("Ingrese el nivel del detective: ");
+                                    nivel = sc.nextInt();
+                                }
+                                det.get(p).setNivel(nivel);
+                                System.out.println("Nivel modificado con éxito");
+                                System.out.println("");
+                                break;
+                        }//fin del switch
+                    }//fin decision anidada
+                }//fin while
+            }//fin opcion3
+            
+            if (op == 4) {
+                System.out.println("");
+                System.out.println("Listado de Detectives");
+                System.out.println("");
+                imprimirD(det);
+                System.out.println("");
+            }//fin opcion 4
+            
+        }//fin while opcion
+
+    }//fin del main
 
     public static void imprimirD(ArrayList<Detective> d) {//imprime los detectives
         for (int i = 0; i < d.size(); i++) {
