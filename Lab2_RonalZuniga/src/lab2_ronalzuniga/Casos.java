@@ -64,7 +64,6 @@ public class Casos {
 
     @Override
     public String toString() {
-        return "Casos{" + "lugar=" + lugar + ", descripcion=" + descripcion + ", tipo=" + tipo + ", detective=" + detective + ", estado=" + estado + '}';
+        return "Caso\n" + " Lugar = " + lugar + "\n Descripcion = " + descripcion + "\n Tipo = " + tipo + "\n Detective = " + detective + "\n Estado = " + estado;
     }
-    
 }
