@@ -3,6 +3,7 @@ package lab2_ronalzuniga;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Lab2_RonalZuniga {
@@ -61,6 +62,7 @@ public class Lab2_RonalZuniga {
 
             if (op == 2) {
                 System.out.println("");
+                System.out.println("ELIMINAR DETECTIVE");
                 imprimirD(det);
                 System.out.print("Ingrese la posicion del detective a eliminar: ");
                 int p = sc.nextInt();
@@ -94,7 +96,7 @@ public class Lab2_RonalZuniga {
                 System.out.println("");
                 int o = 0;
                 while (o != 6) {
-                    System.out.println("----Modificar Detectives----");
+                    System.out.println("----MODIFICAR DETECTIVES----");
                     System.out.println("1. Modificar Nombre");
                     System.out.println("2. Modificar Edad");
                     System.out.println("3, Modificar Nacionalidad");
@@ -175,15 +177,219 @@ public class Lab2_RonalZuniga {
                     }//fin decision anidada
                 }//fin while
             }//fin opcion3
-            
+
             if (op == 4) {
                 System.out.println("");
-                System.out.println("Listado de Detectives");
+                System.out.println("LISTADO DE DETECTIVES");
                 System.out.println("");
                 imprimirD(det);
                 System.out.println("");
             }//fin opcion 4
+
+            if (op == 5) {
+                System.out.println("");
+                System.out.println("REGISTRAR CASOS");
+                String lugar, descripcion, tipo = "", detective, estado = "";
+                int t, e, p;
+                System.out.print("Ingrese el lugar del caso: ");
+                lugar = sc.next();
+                System.out.print("Ingrese la descripción del caso: ");
+                descripcion = sc.next();
+                System.out.println("1. Homicidio\n"
+                        + "2. Robo\n"
+                        + "3. Secuestro");
+                System.out.print("Seleccione el tipo de caso: ");
+                t = sc.nextInt();
+                while (t <= 0 || t > 3) {
+                    System.out.println("Tipo inválido, intente de nuevo");
+                    System.out.println("1. Homicidio\n"
+                            + "2. Robo\n"
+                            + "3. Secuestro");
+                    System.out.print("Seleccione el tipo de caso: ");
+                    t = sc.nextInt();
+                }//fin while validacion de tipo
+                switch (t) {
+                    case 1:
+                        tipo = "Homicidio";
+                        break;
+
+                    case 2:
+                        tipo = "Robo";
+                        break;
+
+                    case 3:
+                        tipo = "Secuestro";
+                        break;
+                }//fin switch
+                imprimirD(det);
+                System.out.print("Ingrese la posicion del detective a cargo del caso: ");
+                p = sc.nextInt();
+                while (p < 0 || p >= det.size()) {
+                    System.out.println("Posicion del detective fuera de rango, intente de nuevo");
+                    System.out.print("Ingrese la posicion del detective a cargo del caso: ");
+                    p = sc.nextInt();
+                }//fin while validacion de detective
+                detective = det.get(p).getNombre();
+                System.out.println("1. Pendiente\n"
+                        + "2. Resuelto");
+                System.out.print("Seleccione el estado del caso: ");
+                e = sc.nextInt();
+                while (e <= 0 || e > 2) {
+                    System.out.println("Tipo inválido, intente de nuevo");
+                    System.out.println("1. Pendiente\n"
+                            + "2. Resuelto");
+                    System.out.print("Seleccione el estado del caso: ");;
+                    e = sc.nextInt();
+                }//fin while validacion de estado
+                switch (e) {
+                    case 1:
+                        estado = "Pendiente";
+                        break;
+
+                    case 2:
+                        estado = "Resuelto";
+                        break;
+                }//fin switch
+                casos.add(new Casos(lugar, descripcion, tipo, detective, estado));
+                System.out.println("Caso registrado correctamente");
+                System.out.println("");
+            }//fin opcion 5
+
+            if (op == 6) {
+                System.out.println("");
+                int o = 0;
+                while (o != 6) {
+                    System.out.println("----MODIFICAR CASOS----");
+                    System.out.println("1. Modificar Lugar");
+                    System.out.println("2. Modificar Descripcion");
+                    System.out.println("3, Modificar Tipo");
+                    System.out.println("4. Modificar Detective");
+                    System.out.println("5. Modificar Estado");
+                    System.out.println("6. Regresar al menu principal");
+                    System.out.print("¿Qué desea modificar?: ");
+                    o = sc.nextInt();
+                    while (o < 0 || o > 6) {
+                        System.out.println("Opcion inválida, intente de nuevo");
+                        System.out.print("¿Qué desea modificar?: ");
+                        o = sc.nextInt();
+                    }
+                    System.out.println("");
+                    imprimirC(casos);
+                    System.out.print("Ingrese la posicion del caso a modificar: ");
+                    int p = sc.nextInt();
+                    if (p < 0 || p >= casos.size()) {
+                        System.out.println("Posicion fuera de rango");
+                        o = 6;
+                    } else {
+                        switch (o) {
+                            case 1:
+                                System.out.println("");
+                                String lugar;
+                                System.out.print("Ingrese el lugar del caso: ");
+                                lugar = sc.next();
+                                casos.get(p).setLugar(lugar);
+                                System.out.println("Lugar modificado con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 2:
+                                System.out.println("");
+                                String descripcion;
+                                System.out.print("Ingrese la descripción del caso: ");
+                                descripcion = sc.next();
+                                casos.get(p).setDescripcion(descripcion);
+                                System.out.println("Descripcion modificada con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 3:
+                                System.out.println("");
+                                int t;
+                                String tipo = "";
+                                System.out.println("1. Homicidio\n"
+                                        + "2. Robo\n"
+                                        + "3. Secuestro");
+                                System.out.print("Seleccione el tipo de caso: ");
+                                t = sc.nextInt();
+                                while (t <= 0 || t > 3) {
+                                    System.out.println("Tipo inválido, intente de nuevo");
+                                    System.out.println("1. Homicidio\n"
+                                            + "2. Robo\n"
+                                            + "3. Secuestro");
+                                    System.out.print("Seleccione el tipo de caso: ");
+                                    t = sc.nextInt();
+                                }//fin while validacion de tipo
+                                switch (t) {
+                                    case 1:
+                                        tipo = "Homicidio";
+                                        break;
+
+                                    case 2:
+                                        tipo = "Robo";
+                                        break;
+
+                                    case 3:
+                                        tipo = "Secuestro";
+                                        break;
+                                }//fin switch
+                                casos.get(p).setTipo(tipo);
+                                System.out.println("Tipo modificado con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 4:
+                                int pos;
+                                String detective;
+                                System.out.println("");
+                                imprimirD(det);
+                                System.out.print("Ingrese la posicion del detective a cargo del caso: ");
+                                pos = sc.nextInt();
+                                while (pos < 0 || pos >= det.size()) {
+                                    System.out.println("Posicion del detective fuera de rango, intente de nuevo");
+                                    System.out.print("Ingrese la posicion del detective a cargo del caso: ");
+                                    pos = sc.nextInt();
+                                }//fin while validacion de detective
+                                detective = det.get(pos).getNombre();
+                                casos.get(p).setDetective(detective);
+                                System.out.println("Detective modificado con éxito");
+                                System.out.println("");
+                                break;
+
+                            case 5:
+                                System.out.println("");
+                                int e;
+                                String estado="";
+                                System.out.println("1. Pendiente\n"
+                                        + "2. Resuelto");
+                                System.out.print("Seleccione el estado del caso: ");
+                                e = sc.nextInt();
+                                while (e <= 0 || e > 2) {
+                                    System.out.println("Tipo inválido, intente de nuevo");
+                                    System.out.println("1. Pendiente\n"
+                                            + "2. Resuelto");
+                                    System.out.print("Seleccione el estado del caso: ");;
+                                    e = sc.nextInt();
+                                }//fin while validacion de estado
+                                switch (e) {
+                                    case 1:
+                                        estado = "Pendiente";
+                                        break;
+
+                                    case 2:
+                                        estado = "Resuelto";
+                                        break;
+                                }//fin switch
+                                casos.get(p).setEstado(estado);
+                                System.out.println("Estado modificado con éxito");
+                                System.out.println("");
+                                break;
+                        }//fin del switch
+                    }//fin decision anidada
+                }//fin while
+            }//fin opcion 6
             
+            
+
         }//fin while opcion
 
     }//fin del main
@@ -240,6 +446,28 @@ public class Lab2_RonalZuniga {
             }
         }
         return ultimo;
+    }
+
+    public static void imprimirC(ArrayList<Casos> c) {//imprime los casos en orden
+        int aux = 0;
+        for (int i = 0; i < c.size(); i++) {
+            if (c.get(i).getTipo().equals("Homicidio")) {
+                System.out.println(aux + "- " + c.get(i));
+                aux++;
+            }
+        }
+        for (int i = 0; i < c.size(); i++) {
+            if (c.get(i).getTipo().equals("Secuestro")) {
+                System.out.println(aux + "- " + c.get(i));
+                aux++;
+            }
+        }
+        for (int i = 0; i < c.size(); i++) {
+            if (c.get(i).getTipo().equals("Robo")) {
+                System.out.println(aux + "- " + c.get(i));
+                aux++;
+            }
+        }
     }
 
 }//fin de la clase
